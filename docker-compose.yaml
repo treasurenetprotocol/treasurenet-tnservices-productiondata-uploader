@@ -1,0 +1,7 @@
+version: '3'
+services:
+  treasureNet_productiondatauploader:
+    image: treasurenet/productiondatauploader:1.0
+    network_mode: "host"
+    restart: unless-stopped
+    container_name: productiondatauploader
