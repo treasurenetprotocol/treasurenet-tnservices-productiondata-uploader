@@ -20,11 +20,11 @@ const automaticDataProcess = async () => {
 
         /* 跑很多天的 */
         const startDate = '2023-01-01'
-        for (let i = 0; i < 31; i++) {
+        for (let i = 0; i < 90; i++) {
             const date = moment(startDate).add(i, "days").format('YYYY-MM-DD');
             console.log(date)
             await uploader.oilProcess(date);
-            await uploader.gasProcess(date);
+            //await uploader.gasProcess(date);
         }
         console.log("END")
    /* })*/
