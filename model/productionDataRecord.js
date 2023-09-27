@@ -47,8 +47,10 @@ const newRecord = async ({type = dict.ASSETTYPE.OIL, location_id, date, amount, 
 }
 
 const updateStatus = async ({type = dict.ASSETTYPE.OIL, location_id, date, status = dict.STATUS.USED}) => {
+    console.log("update")
     const Model = type === dict.ASSETTYPE.OIL ? OilDataRecordModel : GasDataRecordModel;
-    return await Model.findOneAndUpdate({type, location_id, date}, {status: 1});
+    console.log("location_id:",location_id,"  date:",date)
+    return await Model.findOneAndUpdate({location_id, date}, {status: 1});
 }
 
 module.exports = {getRecord, getAvailableRecords, existOrNot, newRecord, updateStatus}

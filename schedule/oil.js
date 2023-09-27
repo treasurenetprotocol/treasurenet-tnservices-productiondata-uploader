@@ -21,10 +21,12 @@ const Process = async (date) => {
         const list = await RecordModel.getAvailableRecords({type: ASSET, date});
         for (let i = 0; i < list.length; i++) {
             const v = list[i];
-
-            await helper.sendTransaction(ASSET, [v.uniqueId, zero, config.sender, Math.floor(v.amount * 10000), zero, date, month, zero]);
-            await _save(v.location_id, v.date);
-            await LogsModel.newLogs(v);
+            console.log(v)
+            if (v.amount * 10000 !== 0){
+                await helper.sendTransaction(ASSET, [v.uniqueId, zero, config.uploader, v.amount * 10000, zero, date, month, zero]);
+                await _save(v.location_id, v.date);
+                await LogsModel.newLogs(v);
+            }
         }
     } catch (e) {
         console.dir(e);

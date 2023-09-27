@@ -15,7 +15,8 @@ module.exports = {
         password: process.env.MONGO_PWD,
         DB_URL: process.env.MONGO_URL || ""
     },
-    sender: process.env.UPLOADER,
+    uploader: process.env.UPLOADER,
+    sender: process.env.SENDER,
     evmEndpoint: process.env.EVM_ENDPOINT,
     tngateway: {
         access_token_url: process.env.TNGATEWAY_ACCESS_TOKEN_URL,
