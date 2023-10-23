@@ -5,9 +5,9 @@
  * Desc:
  */
 
-const Web3 = require("web3");
-const config = require("../config");
+const Web3 = require('web3');
+const config = require('../config');
 
 const web3 = new Web3(new Web3.providers.HttpProvider(config.evmEndpoint));
 
-module.exports = web3
+module.exports = web3;

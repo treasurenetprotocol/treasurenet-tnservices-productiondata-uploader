@@ -13,7 +13,7 @@ module.exports = {
         database: process.env.MONGO_NAME,
         username: process.env.MONGO_USER,
         password: process.env.MONGO_PWD,
-        DB_URL: process.env.MONGO_URL || ""
+        DB_URL: process.env.MONGO_URL || ''
     },
     uploader: process.env.UPLOADER,
     sender: process.env.SENDER,
@@ -25,4 +25,4 @@ module.exports = {
         scope: process.env.TNGATEWAY_SCOPE,
         url: process.env.TNGATEWAY_API_URL
     },
-}
+};
