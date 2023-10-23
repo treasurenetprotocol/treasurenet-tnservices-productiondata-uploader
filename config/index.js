@@ -13,9 +13,10 @@ module.exports = {
         database: process.env.MONGO_NAME,
         username: process.env.MONGO_USER,
         password: process.env.MONGO_PWD,
-        DB_URL: process.env.MONGO_URL || ""
+        DB_URL: process.env.MONGO_URL || ''
     },
-    sender: process.env.UPLOADER,
+    uploader: process.env.UPLOADER,
+    sender: process.env.SENDER,
     evmEndpoint: process.env.EVM_ENDPOINT,
     tngateway: {
         access_token_url: process.env.TNGATEWAY_ACCESS_TOKEN_URL,
@@ -24,4 +25,4 @@ module.exports = {
         scope: process.env.TNGATEWAY_SCOPE,
         url: process.env.TNGATEWAY_API_URL
     },
-}
+};
