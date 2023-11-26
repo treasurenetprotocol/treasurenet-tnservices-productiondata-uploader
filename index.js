@@ -18,7 +18,6 @@ const automaticDataProcess = async () => {
         // await uploader.oilProcess(date);
         // await uploader.gasProcess(date);
 
-        /* 跑很多天的 */
         const startDate = '2023-01-01'
         for (let i = 0; i < 90; i++) {
             const date = moment(startDate).add(i, "days").format('YYYY-MM-DD');
