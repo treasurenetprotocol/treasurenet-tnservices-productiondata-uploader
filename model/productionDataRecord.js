@@ -13,7 +13,7 @@ const RecordSchema = new mongoose.Schema({
     date: {type: Number, index: true, required: true},
     amount: Number,
     month: Number,
-    status: {type: Number, default: dict.STATUS.UNUSED},  // 0:未使用 1：已使用
+    status: {type: Number, default: dict.STATUS.UNUSED},
     timestamp: {type: Date, default: Date.now},
 });
 
