@@ -73,7 +73,7 @@ jobs:
             sudo docker-compose -f /data/deploy/treasurenet_ogdatauploader_testnet.yaml up -d
             curl 'https://oapi.dingtalk.com/robot/send?access_token=${{secrets.DINGTALK_ROBOT_TOKEN}}' \
             -H 'Content-Type: application/json' \
-            -d '{"msgtype": "text","text": {"content":"[TESTNET]Treasurenet DigitalAssets-Dataprovider Module has been deployed.(FROM GITHUB ACTION)"}}'
+            -d '{"msgtype": "text","text": {"content":"[TESTNET]Treasurenet O&G DataUploader Module has been deployed.(FROM GITHUB ACTION)"}}'
             
       
 
