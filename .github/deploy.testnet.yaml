@@ -1,0 +1,17 @@
+version: "3"
+services:
+  treasureNet_ogdatauploader:
+    image: {{ .DOCKER_TAG }}
+    restart: unless-stopped
+    container_name: ogdatauploader
+    environment:
+      - MONGO_URL={{ .MONGO_URL }}
+      - EVM_ENDPOINT={{ .BLOCKCHAIN_NODE_HTTP }}
+      - UPLOADER=0xCef7fccBD38A940DAFAC9F6D2567Fd51C4Da6926
+      - SENDER=7838ab5f3f3c0bfe16dd426f4301ee2eae390c8665e9db244fd66601566bec8f
+      - TNGATEWAY_ACCESS_TOKEN_URL={{ .TNGATEWAY_ACCESS_TOKEN_URL }}
+      - TNGATEWAY_CLIENT_ID={{ .TNGATEWAY_CLIENT_ID }}
+      - TNGATEWAY_CLIENT_SECRET={{ .TNGATEWAY_CLIENT_SECRET }}
+      - TNGATEWAY_SCOPE={{ .TNGATEWAY_SCOPE }}
+      - TNGATEWAY_API_URL={{ .TNGATEWAY_API_URL }}
+

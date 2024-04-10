@@ -1,0 +1,64 @@
+name: Build, Push Docker and Deploy
+
+on:
+  push:
+    tags:
+      - 'v**'
+    branches:
+      - 'feature/**'
+
+jobs:
+  deploy:
+    name: Build, Push Docker and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: treasurenet/ogdatauploader
+
+      - name: Render Template
+        id: template
+        uses: chuhlomin/render-template@v1
+        with:
+          template: .github/deploy.dev.yaml
+          vars: |
+            DOCKER_TAG: ${{ steps.meta.outputs.tags }}
+            MONGO_URL: ${{ secrets.DEV_MONGO_URL }}
+            BLOCKCHAIN_NODE_HTTP: ${{ vars.DEV_BLOCKCHAIN_NODE_HTTP }}
+            TNGATEWAY_ACCESS_TOKEN_URL: ${{ vars.DEV_TNGATEWAY_ACCESS_TOKEN_URL }}
+            TNGATEWAY_CLIENT_ID: ${{ vars.DEV_TNGATEWAY_CLIENT_ID }}
+            TNGATEWAY_CLIENT_SECRET: ${{ secrets.DEV_TNGATEWAY_CLIENT_SECRET }}
+            TNGATEWAY_SCOPE: ${{ vars.DEV_TNGATEWAY_SCOPE }}
+            TNGATEWAY_API_URL: ${{ vars.DEV_TNGATEWAY_API_URL }}
+
+      - name: send file to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEV_SERVICES_SERVER_HOST }}
+          username: ${{ secrets.DEV_SERVICES_SERVER_USER }}
+          password: ${{ secrets.DEV_SERVICES_SERVER_PWD }}
+          source: .
+          target: /data/deploy/ogdatauploader
+
+      - name: Deploy to the Server(DEV)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEV_SERVICES_SERVER_HOST }}
+          username: ${{ secrets.DEV_SERVICES_SERVER_USER }}
+          password: ${{ secrets.DEV_SERVICES_SERVER_PWD }}
+          script: |
+            echo '${{ steps.template.outputs.result }}' > /data/deploy/treasurenet_ogdatauploader_dev.yaml
+            sudo docker-compose -f /data/deploy/treasurenet_ogdatauploader_dev.yaml down
+            sudo docker rmi ${{ steps.meta.outputs.tags }}
+            sudo docker-compose -f /data/deploy/treasurenet_ogdatauploader_dev.yaml up -d
+            curl 'https://oapi.dingtalk.com/robot/send?access_token=${{secrets.DINGTALK_ROBOT_TOKEN}}' \
+            -H 'Content-Type: application/json' \
+            -d '{"msgtype": "text","text": {"content":"Treasurenet O&G DataUploader Module has been deployed.(FROM GITHUB ACTION)"}}'
+            
+      
+

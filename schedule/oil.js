@@ -23,8 +23,8 @@ const Process = async (date) => {
         for (let i = 0; i < list.length; i++) {
             const v = list[i];
             console.log(v);
-            if (v.amount * 10000 !== 0){
-                await helper.sendTransaction(ASSET, [v.uniqueId, zero, config.uploader, BigNumber(v.amount).times(BigNumber(10000)).toNumber(), zero, date, month, zero]);
+            if (v.amount * 10000 !== 0) {
+                await helper.sendTransaction(ASSET, [v.uniqueId, zero, config.uploader, BigNumber(v.amount).times(BigNumber(10000)).toNumber(), zero, date, month, '', zero, zero, zero]);
                 await _save(v.location_id, v.date);
                 await LogsModel.newLogs(v);
             }
